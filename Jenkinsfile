@@ -8,7 +8,7 @@ pipeline {
            steps {
               withCredentials([aws(acessKeyVariable:'AWS-ACCESS-KEY_ID',credentialsId:'jenkins',secreteKeyVariable:'AWS_SECRET_KEY')]){
                   sh 'echo "Uploading content with AWS creds"'
-                      s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'bizongo.html', bucket:'bizongo1')
+                      s3Upload(file:'bizongo.html' , bucket:'bizongo1')
               }
             }
         }
