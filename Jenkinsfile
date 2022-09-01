@@ -1,15 +1,15 @@
 pipeline {
     agent any
     environment {
-        git_credential = "git"
-        aws_credential = "jenkins"
-        bucket = "bizongo1"
-        region = "us-west-1"    
-                }
-        stage("Upload"){
-            steps{
-                withAWS(region:"us-west-1", credentials:"jenkins"){
-                    s3Upload(file:"bizongo.html", bucket:"bizongo1", path:"/")
-                 }
-       } 
+       AWS_DEFAULT_REGION="us-west-1"
+    }
+    stages {
+        stage('deploy') {
+           steps {
+              withCredentials([aws(acessKeyVariable:'AWS-ACCESS-KEY_ID',credentialsId:'jenkins',secreteKeyVariable:'AWS_SECRET_KEY')]){
+                  sh "aws s3 cp /bizongo.html s3://bizongo1"
+              }
+            }
+        }
+    }
 }
