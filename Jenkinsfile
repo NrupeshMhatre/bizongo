@@ -8,6 +8,7 @@ pipeline {
            steps {
               withCredentials([aws(acessKeyVariable:'AWS-ACCESS-KEY_ID',credentialsId:'jenkins',secreteKeyVariable:'AWS_SECRET_KEY')]){
                   sh "aws s3 cp bizongo.html s3://bizongo"
+                  sh "aws s3 cp index.html s3://bizongo"
               }
             }
         }
